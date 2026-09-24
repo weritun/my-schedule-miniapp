@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="auto">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -13,147 +13,172 @@
     --hint: var(--tg-theme-hint-color, #8a8a8e);
     --accent: var(--tg-theme-button-color, #2481cc);
     --accent-text: var(--tg-theme-button-text-color, #ffffff);
-    --shadow: 0 4px 14px rgba(0,0,0,0.06);
-    --grad1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --grad2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --grad3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --grad4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    --grad5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --shadow: 0 2px 12px rgba(0,0,0,0.05);
+    --border: rgba(0,0,0,0.06);
   }
+  html[data-theme="dark"] {
+    --bg: #17212b;
+    --card: #232e3c;
+    --text: #ffffff;
+    --hint: #7d8b99;
+    --accent: #5288c1;
+    --accent-text: #ffffff;
+    --shadow: 0 2px 12px rgba(0,0,0,0.25);
+    --border: rgba(255,255,255,0.08);
+  }
+  html[data-theme="light"] {
+    --bg: #ffffff;
+    --card: #f4f4f7;
+    --text: #111111;
+    --hint: #8a8a8e;
+    --accent: #2481cc;
+    --accent-text: #ffffff;
+    --shadow: 0 2px 12px rgba(0,0,0,0.05);
+    --border: rgba(0,0,0,0.06);
+  }
+
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; }
-  body { padding-bottom: 78px; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    padding-bottom: 76px;
+    transition: background 0.25s, color 0.25s;
+  }
 
   /* HERO */
   .hero {
-    padding: 20px 20px 24px;
-    background: var(--grad1);
+    padding: 18px 20px 22px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
-    border-radius: 0 0 24px 24px;
+    border-radius: 0 0 22px 22px;
     position: relative;
     overflow: hidden;
   }
   .hero::before {
-    content: ''; position: absolute; top: -40px; right: -40px;
-    width: 160px; height: 160px; border-radius: 50%;
+    content: ''; position: absolute; top: -50px; right: -50px;
+    width: 180px; height: 180px; border-radius: 50%;
     background: rgba(255,255,255,0.08);
   }
   .hero::after {
-    content: ''; position: absolute; bottom: -60px; left: -30px;
-    width: 140px; height: 140px; border-radius: 50%;
+    content: ''; position: absolute; bottom: -70px; left: -40px;
+    width: 160px; height: 160px; border-radius: 50%;
     background: rgba(255,255,255,0.06);
   }
-  .hero-top { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
-  .hero-greet { font-size: 13px; opacity: 0.85; margin-bottom: 2px; }
-  .hero-title { font-size: 22px; font-weight: 700; letter-spacing: -0.4px; }
-  .hero-avatar {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    border: 2px solid rgba(255,255,255,0.35);
+  .hero-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    position: relative; z-index: 1; margin-bottom: 16px;
   }
-  .hero-stats { display: flex; gap: 10px; margin-top: 18px; position: relative; z-index: 1; }
+  .hero-greet { font-size: 12px; opacity: 0.85; margin-bottom: 3px; }
+  .hero-title { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+  .hero-actions { display: flex; gap: 8px; }
+  .icon-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; cursor: pointer; padding: 0;
+    backdrop-filter: blur(8px);
+    transition: transform 0.15s;
+  }
+  .icon-btn:active { transform: scale(0.92); }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 700;
+    border: 2px solid rgba(255,255,255,0.4);
+    overflow: hidden; flex-shrink: 0;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .hero-stats { display: flex; gap: 8px; position: relative; z-index: 1; }
   .hero-stat {
     flex: 1;
-    background: rgba(255,255,255,0.15);
-    border-radius: 14px;
-    padding: 10px 12px;
+    background: rgba(255,255,255,0.16);
+    border-radius: 14px; padding: 10px 12px;
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
   }
   .hero-stat-num { font-size: 20px; font-weight: 800; line-height: 1; }
   .hero-stat-lbl { font-size: 11px; opacity: 0.85; margin-top: 4px; }
 
-  /* TABS */
-  .tabs {
-    display: flex; gap: 8px;
-    padding: 16px 16px 8px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab {
-    flex-shrink: 0;
-    padding: 8px 16px;
-    border-radius: 100px;
-    background: var(--card);
-    color: var(--text);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .tab.active {
-    background: var(--accent);
-    color: var(--accent-text);
-    box-shadow: 0 4px 12px rgba(36,129,204,0.3);
-  }
+  /* SECTION */
+  .section { padding: 14px 16px; }
 
-  /* CALENDAR */
-  .section { padding: 8px 16px; }
-  .month-nav { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; }
+  /* MONTH NAV */
+  .month-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 6px 0 12px;
+  }
   .month-nav .label { font-size: 16px; font-weight: 700; text-transform: capitalize; }
   .month-nav button {
     background: var(--card); border: none; color: var(--text);
-    width: 34px; height: 34px; border-radius: 50%;
-    font-size: 18px; cursor: pointer; font-weight: 700;
+    width: 36px; height: 36px; border-radius: 50%;
+    font-size: 20px; cursor: pointer; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s;
   }
-  .weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 6px; }
-  .weekday { text-align: center; font-size: 11px; color: var(--hint); font-weight: 600; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.5px; }
-  .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .month-nav button:active { transform: scale(0.9); }
+
+  /* CALENDAR */
+  .weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 4px; }
+  .weekday {
+    text-align: center; font-size: 11px; color: var(--hint);
+    font-weight: 700; padding: 6px 0; letter-spacing: 0.5px;
+  }
+  .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
   .day {
     aspect-ratio: 1;
     display: flex; align-items: center; justify-content: center;
-    border-radius: 12px;
+    border-radius: 11px;
     font-size: 14px; font-weight: 500;
     cursor: pointer;
     position: relative;
-    transition: all 0.15s;
     color: var(--text);
+    transition: background 0.15s, transform 0.1s;
   }
+  .day:active { transform: scale(0.94); }
   .day.other-month { color: var(--hint); opacity: 0.35; }
-  .day.today { background: var(--accent); color: var(--accent-text); font-weight: 800; }
-  .day.selected:not(.today) { background: var(--card); font-weight: 700; }
-  .day.selected:not(.today)::after {
-    content: ''; position: absolute; inset: 0;
-    border-radius: 12px; border: 2px solid var(--accent);
+  .day.today {
+    background: var(--accent); color: var(--accent-text); font-weight: 800;
   }
-  .day.has-event:not(.today)::before {
+  .day.selected:not(.today) {
+    background: var(--card); font-weight: 700;
+    outline: 2px solid var(--accent); outline-offset: -2px;
+  }
+  .day.has-event::after {
     content: ''; position: absolute; bottom: 4px;
     width: 5px; height: 5px; border-radius: 50%;
     background: var(--accent);
   }
-  .day.today.has-event::before {
-    content: ''; position: absolute; bottom: 4px;
-    width: 5px; height: 5px; border-radius: 50%;
-    background: #fff;
-  }
+  .day.today.has-event::after { background: var(--accent-text); }
 
   /* EVENTS */
   .events-title {
-    font-size: 17px; font-weight: 700;
-    margin: 20px 0 12px;
+    font-size: 17px; font-weight: 700; margin: 20px 0 12px;
     text-transform: capitalize;
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 10px;
   }
   .events-title::before {
     content: ''; width: 4px; height: 18px; border-radius: 2px;
     background: var(--accent);
   }
   .event-card {
-    border-radius: 16px;
-    padding: 14px 16px;
-    margin-bottom: 10px;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
     background: var(--card);
     display: flex; gap: 12px;
     box-shadow: var(--shadow);
     position: relative;
     overflow: hidden;
+    border: 1px solid var(--border);
   }
   .event-card::before {
     content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 4px;
+    width: 4px; border-radius: 0 4px 4px 0;
     background: var(--accent);
   }
   .event-card.учёба::before, .event-card.учеба::before { background: linear-gradient(180deg, #667eea, #764ba2); }
@@ -162,75 +187,129 @@
   .event-card.быт::before { background: linear-gradient(180deg, #43e97b, #38f9d7); }
   .event-card.личное::before { background: linear-gradient(180deg, #4facfe, #00f2fe); }
   .event-icon {
-    width: 44px; height: 44px; border-radius: 12px;
+    width: 42px; height: 42px; border-radius: 11px;
     background: var(--bg);
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px; flex-shrink: 0;
+    font-size: 20px; flex-shrink: 0;
   }
   .event-body { flex: 1; min-width: 0; }
-  .event-time { font-size: 12px; color: var(--hint); font-weight: 700; margin-bottom: 3px; letter-spacing: 0.2px; }
+  .event-time { font-size: 11px; color: var(--hint); font-weight: 800; margin-bottom: 3px; letter-spacing: 0.4px; }
   .event-title { font-size: 15px; font-weight: 600; line-height: 1.3; word-break: break-word; }
-  .event-place { font-size: 12px; color: var(--hint); margin-top: 5px; display: flex; align-items: center; gap: 4px; }
+  .event-place { font-size: 12px; color: var(--hint); margin-top: 5px; }
 
-  .empty {
-    text-align: center; padding: 40px 20px;
-    color: var(--hint); font-size: 14px;
-  }
-  .empty-emoji { font-size: 48px; margin-bottom: 12px; display: block; opacity: 0.6; }
-  .loading { text-align: center; padding: 40px; color: var(--hint); font-size: 14px; }
-  .error { text-align: center; padding: 24px; color: #e74c3c; font-size: 13px; line-height: 1.5; }
-
-  /* STATS page */
-  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  /* STATS */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
   .stat-card {
-    padding: 16px; border-radius: 16px;
+    padding: 16px; border-radius: 14px;
     color: #fff; position: relative; overflow: hidden;
     box-shadow: var(--shadow);
   }
-  .stat-card.g1 { background: var(--grad1); }
-  .stat-card.g2 { background: var(--grad2); }
-  .stat-card.g3 { background: var(--grad3); }
-  .stat-card.g4 { background: var(--grad4); }
+  .stat-card.g1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+  .stat-card.g2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+  .stat-card.g3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+  .stat-card.g4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
   .stat-num { font-size: 26px; font-weight: 800; line-height: 1; }
   .stat-lbl { font-size: 12px; opacity: 0.9; margin-top: 6px; }
+
+  /* PROFILE */
+  .profile-card {
+    background: var(--card); border-radius: 16px;
+    padding: 18px; box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .profile-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .profile-avatar {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 800; color: #fff;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .profile-name { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .profile-id { font-size: 12px; color: var(--hint); margin-top: 3px; }
+  .pro-badge {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    color: #fff; padding: 2px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 800;
+  }
+  .profile-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; font-size: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .profile-row .label { color: var(--hint); }
+  .profile-row .value { font-weight: 700; }
+
+  /* EMPTY */
+  .empty { text-align: center; padding: 40px 20px; color: var(--hint); font-size: 14px; }
+  .empty-emoji { font-size: 46px; margin-bottom: 10px; display: block; opacity: 0.7; }
+  .loading { text-align: center; padding: 40px; color: var(--hint); font-size: 14px; }
+  .error { text-align: center; padding: 24px; color: #e74c3c; font-size: 13px; line-height: 1.5; }
 
   /* BOTTOM NAV */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     background: var(--bg);
-    border-top: 1px solid var(--card);
+    border-top: 1px solid var(--border);
     display: flex;
-    padding: 8px 0 12px;
+    padding: 8px 0 14px;
     z-index: 100;
-    backdrop-filter: blur(20px);
   }
   .nav-item {
-    flex: 1;
-    text-align: center;
-    padding: 6px 0;
-    cursor: pointer;
+    flex: 1; text-align: center;
+    padding: 4px 0; cursor: pointer;
     color: var(--hint);
-    transition: color 0.2s;
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 10px; font-weight: 700;
+    transition: color 0.2s, transform 0.15s;
   }
+  .nav-item:active { transform: scale(0.94); }
   .nav-item .icon { font-size: 22px; display: block; margin-bottom: 2px; line-height: 1; }
   .nav-item.active { color: var(--accent); }
-  .nav-item.active .icon { transform: scale(1.1); }
 
   .page { display: none; }
   .page.active { display: block; }
+
+  /* THEME MODAL */
+  .modal {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: 200;
+    align-items: flex-end; justify-content: center;
+  }
+  .modal.show { display: flex; }
+  .modal-body {
+    background: var(--bg); width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px 30px;
+    color: var(--text);
+  }
+  .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .theme-option {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; border-radius: 12px;
+    background: var(--card); margin-bottom: 8px;
+    cursor: pointer; font-size: 14px; font-weight: 600;
+    transition: transform 0.15s;
+  }
+  .theme-option:active { transform: scale(0.98); }
+  .theme-option.active { outline: 2px solid var(--accent); }
+  .theme-option .check { color: var(--accent); font-weight: 800; }
 </style>
 </head>
 <body>
 
 <div class="hero">
   <div class="hero-top">
-    <div>
-      <div class="hero-greet" id="greet">Привет 👋</div>
-      <div class="hero-title" id="userName">Моё расписание</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="avatar" id="avatar">?</div>
+      <div>
+        <div class="hero-greet" id="greet">Привет 👋</div>
+        <div class="hero-title" id="userName">Моё расписание</div>
+      </div>
     </div>
-    <div class="hero-avatar" id="avatar">📅</div>
+    <div class="hero-actions">
+      <button class="icon-btn" onclick="openThemeModal()" title="Тема">🎨</button>
+    </div>
   </div>
   <div class="hero-stats">
     <div class="hero-stat">
@@ -248,7 +327,6 @@
   </div>
 </div>
 
-<!-- PAGE: Calendar -->
 <div class="page active" id="page-calendar">
   <div class="section">
     <div class="month-nav">
@@ -257,9 +335,9 @@
       <button onclick="changeMonth(1)">›</button>
     </div>
     <div class="weekdays">
-      <div class="weekday">Пн</div><div class="weekday">Вт</div><div class="weekday">Ср</div>
-      <div class="weekday">Чт</div><div class="weekday">Пт</div><div class="weekday">Сб</div>
-      <div class="weekday">Вс</div>
+      <div class="weekday">ПН</div><div class="weekday">ВТ</div><div class="weekday">СР</div>
+      <div class="weekday">ЧТ</div><div class="weekday">ПТ</div><div class="weekday">СБ</div>
+      <div class="weekday">ВС</div>
     </div>
     <div class="calendar" id="calendar"></div>
     <div class="events-title" id="selectedDateTitle">Сегодня</div>
@@ -267,7 +345,6 @@
   </div>
 </div>
 
-<!-- PAGE: Stats -->
 <div class="page" id="page-stats">
   <div class="section">
     <div class="events-title">Статистика</div>
@@ -275,7 +352,6 @@
   </div>
 </div>
 
-<!-- PAGE: Profile -->
 <div class="page" id="page-profile">
   <div class="section">
     <div class="events-title">Профиль</div>
@@ -295,18 +371,27 @@
   </div>
 </div>
 
+<div class="modal" id="themeModal" onclick="closeThemeModal(event)">
+  <div class="modal-body" onclick="event.stopPropagation()">
+    <div class="modal-title">Выбор темы</div>
+    <div class="theme-option" data-theme="auto" onclick="setTheme('auto')">
+      <span>🌗 Как в Telegram</span><span class="check"></span>
+    </div>
+    <div class="theme-option" data-theme="light" onclick="setTheme('light')">
+      <span>☀️ Светлая</span><span class="check"></span>
+    </div>
+    <div class="theme-option" data-theme="dark" onclick="setTheme('dark')">
+      <span>🌙 Тёмная</span><span class="check"></span>
+    </div>
+  </div>
+</div>
+
 <script>
 const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
-  
-const API_URL = "https://30446d400be852.lhr.life";
 
-let allEvents = {};
-let currentDate = new Date();
-let selectedDate = todayStr();
-let loadedStats = false;
-let loadedProfile = false;
+const API_URL = "https://30446d400be852.lhr.life";
 
 const TYPE_EMOJI = {
   "учёба": "🎓", "учеба": "🎓",
@@ -316,6 +401,45 @@ const TYPE_EMOJI = {
   "личное": "📝"
 };
 
+let allEvents = {};
+let currentDate = new Date();
+let selectedDate = todayStr();
+let loadedStats = false;
+let loadedProfile = false;
+
+/* === THEME === */
+function applyTheme(theme) {
+  if (theme === 'auto') {
+    const isDark = tg.colorScheme === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  document.querySelectorAll('.theme-option').forEach(function(el) {
+    el.classList.toggle('active', el.getAttribute('data-theme') === theme);
+  });
+}
+
+function setTheme(theme) {
+  localStorage.setItem('theme', theme);
+  applyTheme(theme);
+  closeThemeModal();
+}
+
+function openThemeModal() {
+  const current = localStorage.getItem('theme') || 'auto';
+  document.querySelectorAll('.theme-option').forEach(function(el) {
+    el.classList.toggle('active', el.getAttribute('data-theme') === current);
+  });
+  document.getElementById('themeModal').classList.add('show');
+}
+
+function closeThemeModal(e) {
+  if (e && e.target !== e.currentTarget && e.type === 'click') return;
+  document.getElementById('themeModal').classList.remove('show');
+}
+
+/* === USER === */
 function todayStr() {
   const d = new Date();
   return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
@@ -323,22 +447,30 @@ function todayStr() {
 
 function initUser() {
   const u = tg.initDataUnsafe && tg.initDataUnsafe.user;
-  if (u) {
-    document.getElementById('userName').textContent = u.first_name || 'Пользователь';
-    document.getElementById('avatar').textContent = (u.first_name || 'П')[0].toUpperCase();
-    const h = new Date().getHours();
-    let greet = 'Привет 👋';
-    if (h < 6) greet = 'Доброй ночи 🌙';
-    else if (h < 12) greet = 'Доброе утро ☀️';
-    else if (h < 18) greet = 'Добрый день 🌤';
-    else greet = 'Добрый вечер 🌆';
-    document.getElementById('greet').textContent = greet;
+  if (!u) return;
+  const name = u.first_name || 'Пользователь';
+  document.getElementById('userName').textContent = name;
+
+  const avatarEl = document.getElementById('avatar');
+  if (u.photo_url) {
+    avatarEl.innerHTML = '<img src="' + u.photo_url + '" alt="">';
+  } else {
+    avatarEl.textContent = name[0].toUpperCase();
   }
+
+  const h = new Date().getHours();
+  let greet = 'Привет 👋';
+  if (h < 6) greet = 'Доброй ночи 🌙';
+  else if (h < 12) greet = 'Доброе утро ☀️';
+  else if (h < 18) greet = 'Добрый день 🌤';
+  else greet = 'Добрый вечер 🌆';
+  document.getElementById('greet').textContent = greet;
 }
 
+/* === API === */
 function apiGet(path) {
   const initData = tg.initData || "";
-  return fetch(API_URL + path + '?initData=' + encodeURIComponent(initData)).then(r => {
+  return fetch(API_URL + path + '?initData=' + encodeURIComponent(initData)).then(function(r) {
     if (r.status === 401) throw new Error('401');
     return r.json();
   });
@@ -366,22 +498,26 @@ async function loadStats() {
 
     const grid = document.getElementById('statsGrid');
     const labels = {
-      "учёба": "Учёба 🎓", "учеба": "Учёба 🎓",
-      "транспорт": "Транспорт 🚌",
-      "др": "Дни рождения 🎂",
-      "быт": "Быт 🏠",
-      "личное": "Личное 📝"
+      "учёба": "Учёба", "учеба": "Учёба",
+      "транспорт": "Транспорт",
+      "др": "Дни рождения",
+      "быт": "Быт",
+      "личное": "Личное"
     };
+    const emojis = {"учёба":"🎓","учеба":"🎓","транспорт":"🚌","др":"🎂","быт":"🏠","личное":"📝"};
     const grads = ['g1','g2','g3','g4'];
     const entries = Object.entries(s.by_type || {});
     if (!entries.length) {
       grid.innerHTML = '<p class="empty"><span class="empty-emoji">📊</span>Пока нет событий</p>';
       return;
     }
-    grid.innerHTML = entries.map(([k, v], i) => {
+    grid.innerHTML = entries.map(function(e, i) {
+      const k = e[0], v = e[1];
       const lbl = labels[k] || k;
-      const g = grads[i % grads.length];
-      return '<div class="stat-card ' + g + '"><div class="stat-num">' + v + '</div><div class="stat-lbl">' + lbl + '</div></div>';
+      const em = emojis[k] || '🔹';
+      return '<div class="stat-card ' + grads[i % grads.length] + '">' +
+        '<div class="stat-num">' + v + '</div>' +
+        '<div class="stat-lbl">' + em + ' ' + lbl + '</div></div>';
     }).join('');
     loadedStats = true;
   } catch (e) {}
@@ -392,38 +528,31 @@ async function loadProfile() {
   const el = document.getElementById('profileCard');
   try {
     const p = await apiGet('/profile');
-    const proBadge = p.is_pro
-      ? '<span style="background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff;padding:2px 10px;border-radius:100px;font-size:11px;font-weight:700;margin-left:8px">PRO ✨</span>'
-      : '';
-    el.innerHTML = `
-      <div style="background:var(--card);border-radius:16px;padding:18px;box-shadow:var(--shadow)">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
-          <div style="width:56px;height:56px;border-radius:50%;background:var(--grad1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800">
-            ${(tg.initDataUnsafe.user && tg.initDataUnsafe.user.first_name || 'П')[0].toUpperCase()}
-          </div>
-          <div style="flex:1">
-            <div style="font-size:16px;font-weight:700">${(tg.initDataUnsafe.user && tg.initDataUnsafe.user.first_name) || 'Пользователь'}${proBadge}</div>
-            <div style="font-size:12px;color:var(--hint);margin-top:2px">ID: ${p.user_id}</div>
-          </div>
-        </div>
-        <div style="border-top:1px solid var(--bg);padding-top:14px">
-          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px">
-            <span style="color:var(--hint)">Всего событий</span>
-            <span style="font-weight:700">${p.total_events}</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px">
-            <span style="color:var(--hint)">Тариф</span>
-            <span style="font-weight:700">${p.is_pro ? ('PRO · ' + p.days_left + ' дн') : 'Бесплатный'}</span>
-          </div>
-        </div>
-      </div>
-    `;
+    const u = tg.initDataUnsafe && tg.initDataUnsafe.user || {};
+    const name = u.first_name || 'Пользователь';
+    const proBadge = p.is_pro ? '<span class="pro-badge">PRO ✨</span>' : '';
+    const avatarContent = u.photo_url
+      ? '<img src="' + u.photo_url + '" alt="">'
+      : name[0].toUpperCase();
+    el.innerHTML =
+      '<div class="profile-card">' +
+        '<div class="profile-head">' +
+          '<div class="profile-avatar">' + avatarContent + '</div>' +
+          '<div style="flex:1;min-width:0">' +
+            '<div class="profile-name">' + name + proBadge + '</div>' +
+            '<div class="profile-id">ID: ' + p.user_id + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="profile-row"><span class="label">Всего событий</span><span class="value">' + p.total_events + '</span></div>' +
+        '<div class="profile-row"><span class="label">Тариф</span><span class="value">' + (p.is_pro ? ('PRO · ' + p.days_left + ' дн') : 'Бесплатный') + '</span></div>' +
+      '</div>';
     loadedProfile = true;
   } catch (e) {
     el.innerHTML = '<p class="error">Не удалось загрузить профиль</p>';
   }
 }
 
+/* === CALENDAR === */
 function renderCalendar() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -511,8 +640,19 @@ function switchPage(page, el) {
   if (page === 'profile') loadProfile();
 }
 
-initUser();
-loadEvents();
+/* === INIT === */
+(function init() {
+  const savedTheme = localStorage.getItem('theme') || 'auto';
+  applyTheme(savedTheme);
+
+  tg.onEvent('themeChanged', function() {
+    const t = localStorage.getItem('theme') || 'auto';
+    if (t === 'auto') applyTheme('auto');
+  });
+
+  initUser();
+  loadEvents();
+})();
 </script>
 </body>
 </html>
