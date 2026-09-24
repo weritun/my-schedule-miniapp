@@ -33,20 +33,14 @@
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 12px; padding: 0 4px;
         }
-        .month-nav .label {
-            font-size: 15px; font-weight: 600; text-transform: capitalize;
-        }
+        .month-nav .label { font-size: 15px; font-weight: 600; text-transform: capitalize; }
         .month-nav button {
             background: transparent; border: none; color: var(--button-color);
-            font-size: 22px; cursor: pointer; padding: 4px 12px;
-            font-weight: 700;
+            font-size: 22px; cursor: pointer; padding: 4px 12px; font-weight: 700;
         }
         .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 20px; }
         .day-name { text-align: center; font-size: 12px; color: var(--hint-color); padding: 8px 0; font-weight: 500; }
-        .day {
-            text-align: center; padding: 10px 0; border-radius: 8px;
-            font-size: 14px; cursor: pointer; position: relative;
-        }
+        .day { text-align: center; padding: 10px 0; border-radius: 8px; font-size: 14px; cursor: pointer; position: relative; }
         .day.other-month { color: var(--hint-color); opacity: 0.4; }
         .day.today { background: var(--button-color); color: var(--button-text-color); font-weight: 700; }
         .day.selected { outline: 2px solid var(--button-color); }
@@ -76,26 +70,22 @@
         <h1>📅 Моё Расписание</h1>
         <button class="today-btn" onclick="goToToday()">Сегодня</button>
     </div>
-
     <div class="month-nav">
         <button onclick="changeMonth(-1)">‹</button>
         <div class="label" id="monthLabel"></div>
         <button onclick="changeMonth(1)">›</button>
     </div>
-
     <div class="calendar" id="calendar"></div>
-
     <div class="events-section">
         <h2 id="selectedDateTitle">Сегодня</h2>
         <div id="eventsList"><p class="loading">Загрузка...</p></div>
     </div>
-
     <script>
         const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
 
-        const API_URL = "https://a75914498ad6c5.lhr.life";
+        const API_URL = "https://80ffa49141af48.lhr.life";
 
         let allEvents = {};
         let currentDate = new Date();
@@ -146,34 +136,27 @@
         function renderCalendar() {
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
-
             const monthNames = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
             document.getElementById('monthLabel').textContent = monthNames[month] + ' ' + year;
-
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const daysInPrev = new Date(year, month, 0).getDate();
             const dayNames = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-
             const calendarEl = document.getElementById('calendar');
             calendarEl.innerHTML = '';
-
             dayNames.forEach(function(name) {
                 const el = document.createElement('div');
                 el.className = 'day-name';
                 el.textContent = name;
                 calendarEl.appendChild(el);
             });
-
             const startOffset = (firstDay === 0 ? 6 : firstDay - 1);
-
             for (let i = startOffset - 1; i >= 0; i--) {
                 const el = document.createElement('div');
                 el.className = 'day other-month';
                 el.textContent = daysInPrev - i;
                 calendarEl.appendChild(el);
             }
-
             const todayS = todayStr();
             for (let day = 1; day <= daysInMonth; day++) {
                 const el = document.createElement('div');
@@ -196,15 +179,12 @@
             const dateObj = new Date(y, m - 1, d);
             const options = { day: 'numeric', month: 'long', weekday: 'long' };
             document.getElementById('selectedDateTitle').textContent = dateObj.toLocaleDateString('ru-RU', options);
-
             const events = allEvents[selectedDate] || [];
             const listEl = document.getElementById('eventsList');
-
             if (!events.length) {
                 listEl.innerHTML = '<p class="empty">На этот день событий нет</p>';
                 return;
             }
-
             listEl.innerHTML = events.map(function(ev) {
                 let t = ev.time || 'весь день';
                 if (ev.time && ev.end_time) t = ev.time + '–' + ev.end_time;
@@ -212,8 +192,7 @@
                 return '<div class="event-card">' +
                     '<div class="time">' + escapeHtml(t) + '</div>' +
                     '<div class="title">' + escapeHtml(ev.title || '—') + '</div>' +
-                    place +
-                    '</div>';
+                    place + '</div>';
             }).join('');
         }
 
